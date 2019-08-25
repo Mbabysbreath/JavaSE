@@ -21,7 +21,7 @@ public class Tree1 {
         preOrderTraversal(root.left);
         preOrderTraversal(root.right);
     }
-    public void inOrderTraversal(TreeNode root){
+    private void inOrderTraversal(TreeNode root){
         if(root==null){
             return ;
         }
@@ -48,6 +48,7 @@ public class Tree1 {
         Queue<TreeNode> queue =new LinkedList<>();
         queue.add(root);
         while(!queue.isEmpty()){
+            System.out.print(queue.peek());
                 TreeNode front=queue.poll();
                 if(root.left!=null){
                     queue.add(front.left);
@@ -56,6 +57,7 @@ public class Tree1 {
                     queue.add(front.right);
                 }
         }
+        return ;
     }
     private TreeNode bulidTree(){
         TreeNode a= new TreeNode('A');
@@ -224,10 +226,25 @@ public class Tree1 {
         root.right=right;
         return root;
     }
-        //判断平衡二叉树
+
+    /**
+     * 判断平衡二叉树
+     * @param root 传入树的根节点
+     * @return 如果是平衡二叉树就返回true
+     */
+    public static boolean isBalance(TreeNode root){
+        if(root==null){
+            return true;
+        }
+        if(Math.abs(calHeight(root.left)-calHeight(root.right))<=1){
+           return  isBalance(root.left)&&isBalance(root.right);
+        }
+        return false;
+    }
         //用前序遍历还原二叉树
+
     public static void main(String[] args) {
-       /*  Tree1 tree=new Tree1();
+         Tree1 tree=new Tree1();
             TreeNode root=tree.bulidTree();
         System.out.println("前序遍历：");
             tree.preOrderTraversal(root);
@@ -235,12 +252,14 @@ public class Tree1 {
             tree.inOrderTraversal(root);
         System.out.println("后序遍历");
             tree.postOrderTraversal(root);
+        System.out.println("层序遍历：");
+      // tree.levelOrderTraversal(root);
         System.out.println("结点个数："+tree.calCount(root));
         System.out.println("叶子结点个数："+ tree.calLeave2(root));
         System.out.println("树的第k层有几个结点："+tree.kTreeHeight(root,2));
         System.out.println("查找树的结点是否存在"+  tree.searchNode2(root,'D'));
         System.out.println("计算树的高度："+tree.calHeight(root));
-*/
+        System.out.println("是否为平衡二叉树："+tree.isBalance(root));
        List<Character> preOrder=Arrays.asList('A','B','D','E','G','C','F','H');
         List<Character> inOrder=Arrays.asList('D', 'B', 'G', 'E', 'A', 'C', 'F', 'H');
         List<Character> postOrder=Arrays.asList('D','G','E','B','F','H','C','A');
@@ -248,5 +267,6 @@ public class Tree1 {
         System.out.println("Yeah");
         TreeNode root2=buildTree2(inOrder,postOrder);
         System.out.println("YYY");
+
 }
 }
