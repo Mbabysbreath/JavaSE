@@ -47,17 +47,16 @@ public class Tree1 {
         }
         Queue<TreeNode> queue =new LinkedList<>();
         queue.add(root);
-        while(!queue.isEmpty()){
+        while(!queue.isEmpty()) {
             System.out.print(queue.peek());
-                TreeNode front=queue.poll();
-                if(root.left!=null){
-                    queue.add(front.left);
-                }
-                if(front.right!=null){
-                    queue.add(front.right);
-                }
+            TreeNode front = queue.poll();
+            if (front.left != null) {
+                queue.add(front.left);
+            }
+            if (front.right != null) {
+                queue.add(front.right);
+            }
         }
-        return ;
     }
     private TreeNode bulidTree(){
         TreeNode a= new TreeNode('A');
@@ -76,7 +75,8 @@ public class Tree1 {
         f.right=null;
         return a;
     }
-    public static  int calCount(TreeNode root){//计算结点
+    //计算结点
+    public static  int calCount(TreeNode root){
         if(root==null){
             return 0;
         }
@@ -243,6 +243,29 @@ public class Tree1 {
     }
         //用前序遍历还原二叉树
 
+    //判断完全二叉树
+    public static boolean isComplete(TreeNode root){
+        if(root==null){
+            return true;
+        }
+        Queue<TreeNode>  queue=new LinkedList<>();
+        queue.add(root);
+        while(true){
+             TreeNode front=queue.poll();
+             if(front==null) {
+                 break;
+             }
+                 queue.add(front.left);
+                 queue.add(front.right);
+        }
+        while(!queue.isEmpty()){
+            TreeNode front1=queue.poll();
+            if(front1!=null){
+                return false;
+            }
+        }
+        return true;
+    }
     public static void main(String[] args) {
          Tree1 tree=new Tree1();
             TreeNode root=tree.bulidTree();
@@ -253,7 +276,7 @@ public class Tree1 {
         System.out.println("后序遍历");
             tree.postOrderTraversal(root);
         System.out.println("层序遍历：");
-      // tree.levelOrderTraversal(root);
+       tree.levelOrderTraversal(root);
         System.out.println("结点个数："+tree.calCount(root));
         System.out.println("叶子结点个数："+ tree.calLeave2(root));
         System.out.println("树的第k层有几个结点："+tree.kTreeHeight(root,2));

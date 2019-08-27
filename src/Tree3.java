@@ -79,5 +79,6 @@ public class Tree3 {
         System.out.println();
         System.out.println("非递归后序:");
        postOrderNonT(n1);
+
     }
 }
