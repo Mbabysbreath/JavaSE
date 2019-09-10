@@ -9,7 +9,7 @@ import java.util.Set;
  * @author ZhaoMin
  * @date 2019/9/6 21:23
  */
-public class BinarySearch {
+public class BinarySerach {
     private static class Node{
         int val;
         int key;
@@ -29,9 +29,9 @@ public class BinarySearch {
             if(cur.key==key){
                 return cur.val;
             }else if(cur.key<key){
-                cur=cur.left;
-            }else{
                 cur=cur.right;
+            }else{
+                cur=cur.left;
             }
         }
         return -1;
@@ -123,6 +123,66 @@ public class BinarySearch {
         }
         return  result;
     }
+
+    /**
+     * 删除指定结点
+     * @param key 指定的key结点
+     * @return 找到该节点 返回相应的value，否则返回-1
+     */
+    public  int remove(int key){
+        Node cur=root;
+        Node parent=null;
+        while(cur!=null){
+           if(cur.key==key){
+               int oldvalue=cur.val;
+               deleteNode(parent,cur);
+               return oldvalue;
+           }else if(cur.key<key){
+               parent=cur;
+               cur=cur.right;
+           }else{
+               parent=cur;
+               cur=cur.left;
+           }
+        }
+        return -1;
+    }
+    private void deleteNode(Node parent,Node cur){
+        if(cur.left==null){
+            if(cur==root){
+                root=cur.right;
+            }else if(cur==parent.right){
+                parent.right=cur.right;
+            }else{
+                parent.left=cur.right;
+            }
+        }else if(cur.right==null){
+            if(cur==null){
+                root=cur.left;
+            } if(parent.left==cur){
+                parent.left=cur.left;
+            }else{
+                parent.right=cur.left;
+            }
+        }
+        else{//两边都不为空，就要有一个约定来确定谁取代被删的点
+            //一般找：比它大的最小的，或比它小的最大的
+            Node goat=cur.left;//比它小的，往左找
+            Node goatParent=cur;
+            while(goat.right!=null){
+                //比它小的最大的。从左子树的右边找
+                goatParent=goat;
+                goat=goat.right;
+            }
+            cur.key=goat.key;
+            cur.val=goat.val;
+            if(goat==goatParent.left){
+                    goatParent.left=goat.left;
+            }else{
+                goatParent.right=goat.left;
+            }
+        }
+    }
     public static class Entry{
         private int key;
         private int value;
@@ -135,12 +195,53 @@ public class BinarySearch {
     }
     public Set<Entry> entrySet(){
         Set<Entry> set=new HashSet<>();
-        Node cur=root;
-
-
+       if(root==null){
+           return set;
+       }
+        Queue<Node> queue=new LinkedList<>();
+       queue.add(root);
+       while(!queue.isEmpty()){
+           Node front=queue.poll();
+           Entry entry=new Entry();
+           entry.key=front.key;
+           entry.value=front.val;
+           set.add(entry);
+           if(front.left!=null){
+               queue.add(front.left);
+           }
+           if(front.right!=null){
+               queue.add(front.right);
+           }
+       }
+            return set;
     }
 
-    public  Collection<Integer> values(){
+    /**
+     * 前序遍历
+     * @param root 树的根
+     */
+    private static void preOrderPrint(Node root){
+        if(root!=null) {
+            System.out.print(root.key);
+            preOrderPrint(root.left);
+            preOrderPrint(root.right);
+        }
+}
+
+    /**
+     * 中序遍历二叉树
+     * @param root 树的根节点
+     */
+    private  static  void inOrderPrint(Node root){
+        if(root!=null){
+            preOrderPrint(root.left);
+            System.out.print(root.key);
+            preOrderPrint(root.right);
+
+        }
+    }
+
+    /*public  Collection<Integer> values(){
         Collection<Integer> result=new HashSet<>();
         Queue<Node> queue=new LinkedList<>();
         if(root==null){
@@ -157,5 +258,23 @@ public class BinarySearch {
             }
         }
         return result;
+    }
+    */
+    public static void main(String[] args) {
+        BinarySerach tree=new BinarySerach();
+        int[] keys = { 6, 7, 4, 2, 1, 5, 9, 3, 8 };
+        for(int key:keys){
+            tree.put(key,key+100);
+        }
+        preOrderPrint(tree.root);
+        System.out.println();
+        System.out.println("=====================");
+        inOrderPrint(tree.root);
+        System.out.println();
+        System.out.println("=====================");
+        System.out.println(tree.get(3));
+        System.out.println(tree.get(13));
+        System.out.println(tree.getOrDefault(13, 113));
+        System.out.println(tree.keySet());
     }
 }
