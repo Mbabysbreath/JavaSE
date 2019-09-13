@@ -34,7 +34,33 @@ class Solution {
             int value = e.getValue();
             if (value > 0) {
                 for (int i = 0; i < value; i++) {
-                    list.add(((char)( key+'a') + ""));
+                    list.add(((char)( key+'a')+""));
+                }
+            }
+        }
+        return list;
+    }
+    /*
+    给定一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素 a，b，c ，
+    使得 a + b + c = 0 ？找出所有满足条件且不重复的三元组。
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/3sum
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+     */
+    public List<List<Integer>> threeSum(int[] nums) {
+        List<List<Integer>> list=new ArrayList<>();
+       // List<Integer> list1=new ArrayList<>();
+        for(int i=0;i<nums.length-2;i++){
+            for(int j=i+1;j<nums.length-1;j++) {
+                for (int k = j + 1; k < nums.length; k++) {
+                    if (nums[i] + nums[j] + nums[k] == 0) {
+                        List<Integer> list1=new ArrayList<>();
+                        list1.add(nums[i]);
+                        list1.add(nums[j]);
+                        list1.add(nums[k]);
+                        list.add(list1);
+
+                    }
                 }
             }
         }
@@ -51,9 +77,11 @@ public class Test1 {
         }
         System.out.println(Arrays.toString(res));*/
         Solution ob=new Solution();
-        String[] A={"bewwaa","waabew","arowwer"};
-        List<String> list= ob. commonChars(A);
-        System.out.println(list);
-
+       // String[] A={"bewwaa","waabew","arowwer"};
+     //   List<String> list= ob. commonChars(A);
+     //   System.out.println(list);
+        int[] nums=new int[]{-1,0,1,2,-1,-4};
+        List<List<Integer>> list1=ob.threeSum(nums);
+        System.out.println(list1);
     }
 }

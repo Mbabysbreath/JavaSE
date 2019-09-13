@@ -104,13 +104,13 @@ public class Heaps {
         }
     }
     public static void main(String[] args) {
-        int[] array1={-1,15,19,18,28,34,65,49,25,37};
-        heapify(array1, array1.length,0);
+        int[] array1={1,8,2,9,2,4,1,5,2,2,4};
+      //  heapify(array1, array1.length,0);
         System.out.println(Arrays.toString(array1));
         createHeap(array1,array1.length);
         System.out.println(Arrays.toString(array1));
-        int[] array2={-1,15,19,18,28,34,65,49,25,37};
-        heapifyMin(array2,array2.length,0);
-        System.out.println(Arrays.toString(array2));
+       // int[] array2={-1,15,19,18,28,34,65,49,25,37};
+       // heapifyMin(array2,array2.length,0);
+       // System.out.println(Arrays.toString(array2));
     }
 }

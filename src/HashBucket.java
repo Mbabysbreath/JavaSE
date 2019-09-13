@@ -5,7 +5,7 @@
  */
 import java.util.*;
 public class HashBucket {
-    private class Node{
+    private static class Node{
         private int key;
         private int value;
         private Node next;
@@ -13,7 +13,7 @@ public class HashBucket {
     private Node[] array;
     private int size;
     public HashBucket(){
-        array=new Node[8];
+        array=new Node[16];
         size=0;
     }
 
@@ -46,6 +46,58 @@ public class HashBucket {
     }
 
     /**
+     * 在哈希桶中插入一个结点（key,value),
+     * 如果key存在，就用value取代原来的value，并返回原来的value
+     * 否则，返回-1
+     * @param key 要插入的key
+     * @param value 要插入的value
+     * @return oldvalue 或-1
+     */
+    public  int put(int key,int value){
+        int index=hashFun(key,array.length);
+        Node head=array[index];
+        Node cur=head;
+        while(cur!=null) {
+            if (cur.key == key) {
+                int oldValue = cur.value;
+                cur.value = value;
+                return oldValue;
+            }
+            cur=cur.next;
+        }
+            Node newNode=new Node();
+            newNode.key=key;
+            newNode.value=value;
+            newNode.next=head;
+            array[index]=newNode;
+            size++;
+            if((double)size/array.length>0.75){
+                resize();
+            }
+            return -1;
+    }
+
+    /**
+     * 扩容
+     */
+    private void resize(){
+        Node[] newArray=new Node[array.length*2];
+        for(int i=0;i<array.length;i++){
+            Node head=array[i];
+            Node cur=head;
+            while(cur!=null){
+                int index=hashFun(cur.key,newArray.length);
+                Node node=new Node();
+                node.key=cur.key;
+                node.value=cur.value;
+                node.next=newArray[index];
+                newArray[index]=node;
+                cur=cur.next;
+            }
+        }
+        array=newArray;
+    }
+    /**
      * 删除指定key的结点
      * @param key 要删的key
      * @return 找到了，删除并返回该值，否则，返回-1
@@ -70,5 +122,15 @@ public class HashBucket {
           cur=cur.next;
        }
        return -1;
+    }
+
+    public static void main(String[] args) {
+        HashBucket hb=new HashBucket();
+        Random random=new Random(20190913);
+        for(int i=0;i<8;i++){
+            int r=random.nextInt(100);
+            hb.put(r,r+100);
+        }
+        System.out.println("Succesful");
     }
 }
