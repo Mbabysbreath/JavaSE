@@ -124,6 +124,23 @@ public class HashBucket {
        return -1;
     }
 
+    /**
+     * 返回所有的key
+     * @return 返回所有的key
+     */
+    public Set<Integer> getKey(){
+        Set<Integer> set=new HashSet<>();
+      //  Node cur=array[]
+        for(int i=0;i<array.length;i++){
+            if(array[i]!=null){
+                set.add(array[i].key);
+              //  System.out.println(array[i].key);
+            }else{
+                continue;
+            }
+        }
+       return set;
+}
     public static void main(String[] args) {
         HashBucket hb=new HashBucket();
         Random random=new Random(20190913);
@@ -132,5 +149,8 @@ public class HashBucket {
             hb.put(r,r+100);
         }
         System.out.println("Succesful");
+       Set<Integer> set=hb.getKey();
+        //hb.getKey();
+        System.out.println(set);
     }
 }
