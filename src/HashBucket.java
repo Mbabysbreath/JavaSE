@@ -13,7 +13,7 @@ public class HashBucket {
     private Node[] array;
     private int size;
     public HashBucket(){
-        array=new Node[16];
+        array=new Node[8];
         size=0;
     }
 
@@ -128,12 +128,18 @@ public class HashBucket {
      * 返回所有的key
      * @return 返回所有的key
      */
-    public Set<Integer> getKey(){
+    public Set<Integer> keySet(){
         Set<Integer> set=new HashSet<>();
       //  Node cur=array[]
         for(int i=0;i<array.length;i++){
             if(array[i]!=null){
-                set.add(array[i].key);
+                System.out.println(array[i].key);
+                Node head=array[i];
+                Node cur=head;
+               while(cur!=null) {
+                    set.add(cur.key);
+                    cur = cur.next;
+                }
               //  System.out.println(array[i].key);
             }else{
                 continue;
@@ -141,16 +147,32 @@ public class HashBucket {
         }
        return set;
 }
+public Set<Integer> getValues(){
+        Set<Integer> set=new HashSet<>();
+        for(int i=0;i<array.length;i++){
+            if(array[i]!=null){
+                Node head=array[i];
+                Node cur=head;
+                while(cur!=null){
+                    set.add(cur.value);
+                    cur=cur.next;
+                }
+            }
+        }
+        return set;
+}
     public static void main(String[] args) {
         HashBucket hb=new HashBucket();
         Random random=new Random(20190913);
         for(int i=0;i<8;i++){
             int r=random.nextInt(100);
+            System.out.print(r+" ");
             hb.put(r,r+100);
         }
         System.out.println("Succesful");
-       Set<Integer> set=hb.getKey();
-        //hb.getKey();
+       Set<Integer> set=hb.keySet();
         System.out.println(set);
+        Set<Integer> set1=hb.getValues();
+        System.out.println(set1);
     }
 }
