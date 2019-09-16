@@ -48,21 +48,53 @@ class Solution {
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
      */
     public List<List<Integer>> threeSum(int[] nums) {
+        Arrays.sort(nums);
         List<List<Integer>> list=new ArrayList<>();
        // List<Integer> list1=new ArrayList<>();
-        for(int i=0;i<nums.length-2;i++){
-            for(int j=i+1;j<nums.length-1;j++) {
-                for (int k = j + 1; k < nums.length; k++) {
-                    if (nums[i] + nums[j] + nums[k] == 0) {
-                        List<Integer> list1=new ArrayList<>();
-                        list1.add(nums[i]);
-                        list1.add(nums[j]);
-                        list1.add(nums[k]);
-                        list.add(list1);
-
-                    }
-                }
+        int i=0;
+        while(i<nums.length-2){
+           int j=i+1;
+           int k=nums.length-1;
+           while (j<k) {
+               while (j < k && nums[i] + nums[j] + nums[k] < 0) {
+                   j++;
+               }
+               if (j >= k) {
+                   break;
+               }
+               if(nums[i] + nums[j] + nums[k]==0){
+                   List<Integer> list1 = new ArrayList<>();
+                   list1.add(nums[i]);
+                   list1.add(nums[j]);
+                   list1.add(nums[k]);
+                   list.add(list1);
+                   while (j < k && nums[j] == nums[j + 1]) {
+                       j++;
+                   }
+                   j++;
+               }
+               while (j < k && nums[i] + nums[j] + nums[k] > 0) {
+                   k--;
+               }
+               if (j >= k) {
+                   break;
+               }
+               if(nums[i] + nums[j] + nums[k]==0){
+                   List<Integer> list1=new ArrayList<>();
+                   list1.add(nums[i]);
+                   list1.add(nums[j]);
+                   list1.add(nums[k]);
+                   list.add(list1);
+                   while (j < k && nums[k] == nums[k - 1]) {
+                       k--;
+                   }
+                   k--;
+               }
+           }
+            while(i<nums.length-2&&nums[i]==nums[i+1]){
+               i++;
             }
+            i++;
         }
         return list;
     }
