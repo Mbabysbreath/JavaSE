@@ -109,9 +109,9 @@ public class Test1 {
         }
         System.out.println(Arrays.toString(res));*/
         Solution ob=new Solution();
-       // String[] A={"bewwaa","waabew","arowwer"};
-     //   List<String> list= ob. commonChars(A);
-     //   System.out.println(list);
+        String[] A={"bewwaa","waabew","arowwer"};
+        List<String> list= ob. commonChars(A);
+       System.out.println(list);
         int[] nums=new int[]{-1,0,1,2,-1,-4};
         List<List<Integer>> list1=ob.threeSum(nums);
         System.out.println(list1);

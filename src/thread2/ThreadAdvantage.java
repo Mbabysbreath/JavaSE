@@ -50,7 +50,7 @@ public class ThreadAdvantage {
                 }
             },"线程"+k);
             threads[i].start();
-            threads[i].join();
+            threads[i].join();//可以放这里
         }
         //1.线程让步yield
        /* while(Thread.activeCount()>2){
@@ -58,7 +58,7 @@ public class ThreadAdvantage {
         }*/
        //2.【常用】调用线程加入/等待：join
      /*   for(Thread thread:threads){
-            thread.join();
+            thread.join();//也可以放这里
         }*/
         long end=System.currentTimeMillis();
         System.out.println("耗时："+(end-start)+"毫秒");

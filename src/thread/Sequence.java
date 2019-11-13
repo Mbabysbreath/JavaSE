@@ -6,11 +6,18 @@ package thread;
  */
 public class Sequence {
     public static void main(String[] args) {
-        for(int i=0;i<10;i++){
+        for(int i=0;i<100;i++){
             final int j=i;
             Runnable r=new Runnable() {
+
                 @Override
                 public void run() {
+                   // System.out.println(j);
+                    try {
+                        Thread.sleep(1000*j);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                     System.out.println(j);
                 }
             };
