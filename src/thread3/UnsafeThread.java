@@ -1,7 +1,9 @@
 package thread3;
 
+import com.sun.org.apache.xml.internal.utils.ThreadControllerWrapper;
 import org.omg.PortableServer.THREAD_POLICY_ID;
 
+import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,12 +21,20 @@ public class UnsafeThread {
     public static void main(String[] args) {
         //开启20个线程，每个线程对COUNT进行++操作10000次
         //预期结果：200000
-        /*for(int i=0;i<20;i++) {
+        Object object=new Object();
+        for(int i=0;i<20;i++) {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
                     for(int j=0;j<10000;j++){
-                        COUNT++;
+//                        COUNT++;
+                        //第一种:静态类对象锁定
+                      //  increment();
+                        //第二种：对实例对象锁定
+                        synchronized (object){
+                            COUNT++;
+                            COUNT--;
+                        }
                     }
                 }
             }).start();
@@ -33,22 +43,30 @@ public class UnsafeThread {
             Thread.yield();
         }
         System.out.println(COUNT);
-*/
-        List<Integer> list= new ArrayList<>();
-        for(int i=0;i<20;i++){
-            final int k=i;
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    for(int j=0;j<10000;j++) {
-                        list.add(k*10000+j);
-                    }
-                }
-            }).start();
-            while (Thread.activeCount()>2){
-                Thread.yield();
-            }
-            System.out.println(list);
-        }
     }
+    //同步互斥：
+    //静态同步方法
+    public synchronized static void increment(){
+        COUNT++;
+    }
+    public synchronized static void decrement(){
+        COUNT--;
+    }
+
+    //将静态同步方法修改为同步代码块
+   /* public static void increment(){
+        synchronized (UnsafeThread.class){
+            COUNT++;
+        }
+    }*/
+   //同步实例方法
+   public synchronized void increment2(){
+
+   }
+   //等同于上边的方法，只是锁的对象不同
+ /*  public void increment2(){
+       synchronized (this){
+
+       }
+   }*/
 }
