@@ -8,7 +8,9 @@ public class CreatThread  {
     public static void main(String[] args) {
         //继承Thread类
         MyThread t=new MyThread();
+        MyThread t2=new MyThread();
         t.start();
+        t2.start();
         //实现Runnable接口
         MyRunner runner=new MyRunner();
         Thread t1=new Thread(runner);

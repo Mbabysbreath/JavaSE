@@ -15,6 +15,7 @@ public class Sequence {
                    // System.out.println(j);
                     try {
                         Thread.sleep(1000*j);
+                        System.out.println(Thread.currentThread().getName());
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -23,6 +24,7 @@ public class Sequence {
             };
             Thread t=new Thread(r);
             t.start();
+           // t.run();
         }
     }
 }

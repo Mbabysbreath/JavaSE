@@ -8,16 +8,20 @@ class MyObject{
     //实例方法锁定类的实例对象
     //只锁定对象
     public synchronized void method1(){
-        System.out.println(Thread.currentThread().getName());
+        System.out.println(
+                Thread.currentThread().getName());
+        System.out.println("1");
         while(true){
 
         }
     }
     public  synchronized void method2(){
-        System.out.println(Thread.currentThread().getName());
-        while (true) {
+        System.out.println(
+                Thread.currentThread().getName());
+        System.out.println("2");
+        /*while (true) {
 
-        }
+        }*/
     }
 }
 public class SynchronizedTest {
@@ -25,9 +29,9 @@ public class SynchronizedTest {
     // ，就开始进行锁对象的操作，至于锁那个对象，与写法有关
     public synchronized static void method1(){
         System.out.println(Thread.currentThread().getName());
-        while(true){
+       /* while(true){
 
-        }
+        }*/
 
     }
     public synchronized static void method2(){
@@ -44,13 +48,14 @@ public class SynchronizedTest {
             @Override
             public void run() {
                 object1.method1();
+               // object2.method2();
             }
         }).start();
 
         new Thread(new Runnable() {
             @Override
             public void run() {
-                object2.method1();
+                object1.method1();
             }
         }).start();
     }
