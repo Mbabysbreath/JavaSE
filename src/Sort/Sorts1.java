@@ -26,7 +26,7 @@ public class Sorts1 {
         for (int i = 0; i < array.length - 1; i++) {//循环次数，第1个数已经有序，只要循环size-1次就好
             //确定有序区间[0,i]
             //无序区间[i+1,arr,length-1]
-            int key = array[i + 1];
+            int key = array[i + 1];//无序区间第一个数
             int j;
             for (j = i; j >= 0; j--) {//向前遍历查找，如果找到比现在大或相等的值，就停下
                 if (key >= array[j]) {
@@ -57,7 +57,7 @@ public class Sorts1 {
      * 在重新分组，增大每一组的元素个数，减少组数，再进行组内排序
      * 最终会只剩一个组，再进行排序
      * 每次组内插入排序，并不是把组内所有元素排一遍，而是只执行一次，跳出后，就会进入下一个组的排序
-     * 分组的规律：gap=gap/3+1;
+     * 分组的规律：gap=gap/3+1;gap是每组中元素个数，3表示分为3组
      *
      * @param array
      */
@@ -173,7 +173,7 @@ public class Sorts1 {
                     return;
                 }
                 int max = left;
-                if (left + 1 < size - 1 && array[left + 1] > array[left]) {
+                if (left + 1 <=size - 1 && array[left + 1] > array[left]) {
                     max = left + 1;
                 }
                 if (array[max] > array[index]) {
@@ -260,7 +260,8 @@ public class Sorts1 {
             }
         }
 
-        //挖坑法获取基准值的位置,对当前区间进行排序，使小于基准值的在基准值左侧，大于的在右侧，
+        //挖坑法获取基准值的位置,对当前区间进行排序，
+        // 使小于基准值的在基准值左侧，大于的在右侧，
         //并最终返回基准值的最终位置
         private static int partion1 ( int[] array, int left, int right){
             int pivot = array[right];//基准值
@@ -353,7 +354,12 @@ public class Sorts1 {
             }
             return new int[]{less, great - 1};
         }
-        public static void mergeSorts ( int[] array){
+
+    /**
+     * 归并排序
+     * @param array
+     */
+    public static void mergeSorts ( int[] array){
             //   mergeSortInternal(array,0,array.length);
             mergeSortsInternalNoR(array);
         }
@@ -439,7 +445,9 @@ public class Sorts1 {
            // System.out.println("选择排序:" + (end2 - begin2));
             long begin3 = System.nanoTime();//单位是纳秒
             //heapSort(array);
-            creatHeap(array,array.length);
+            System.out.println(Arrays.toString(array));
+            heapSort(array);
+           // creatHeap(array,array.length);
             System.out.println(Arrays.toString(array));
             long end3 = System.nanoTime();
             System.out.println("堆排序:" + (end3 - begin3));

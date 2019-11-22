@@ -9,6 +9,7 @@ import java.util.List;
  * @author ZhaoMin
  * @date 2019/9/21 9:07
  */
+//static只能修饰成员级别，类/方法/变量属性/代码块/静态包导入
 public final class MyString implements Comparable<MyString> {
     private final char[] value;
     //构造方法
@@ -153,5 +154,6 @@ public final class MyString implements Comparable<MyString> {
         System.out.println(s.compareTo(r));
         System.out.println(s.compareTo(t));
         System.out.println(s.intern());
+        System.out.println(iteral(t));
     }
 }
