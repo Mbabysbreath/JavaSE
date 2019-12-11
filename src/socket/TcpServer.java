@@ -23,6 +23,7 @@ public class TcpServer {
             BufferedReader reader=new BufferedReader(isr);
             String data=null;
             while((data=reader.readLine())!=null){
+
                 System.out.println(data);
             }
         } catch (IOException e) {
