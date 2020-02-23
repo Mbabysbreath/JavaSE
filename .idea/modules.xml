@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/20190823二叉树.iml" filepath="$PROJECT_DIR$/20190823二叉树.iml" />
       <module fileurl="file://D:/Workspaces/maven-test/maven-test.iml" filepath="D:/Workspaces/maven-test/maven-test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/maven-web/maven-web.iml" filepath="$PROJECT_DIR$/maven-web/maven-web.iml" />
     </modules>
   </component>
 </project>
