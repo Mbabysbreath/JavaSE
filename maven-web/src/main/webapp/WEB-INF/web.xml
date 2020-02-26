@@ -3,4 +3,16 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
+
+    <servlet>
+        <servlet-name>loginServlet</servlet-name>
+        <servlet-class>servlet.LoginServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>loginServlet</servlet-name>
+        <!-- url格式必须是/开头，允许有*这样的符号，代表任意字符出现多次-->
+        <!-- 所有请求都通过该servlet进行处理-->
+        <url-pattern>/*</url-pattern>
+        <!--url-pattern>/login</url-pattern-->
+    </servlet-mapping>
 </web-app>
