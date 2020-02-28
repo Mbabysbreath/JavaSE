@@ -18,7 +18,8 @@ import java.io.PrintWriter;
  */
 public class LoginServlet extends HttpServlet {
     @Override
-    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+   // protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         //只是对请求设置编码，如果是url中的请求参数，需要自己处理
         req.setCharacterEncoding("UTF-8");
         //对响应设置编码：响应体
@@ -35,4 +36,9 @@ public class LoginServlet extends HttpServlet {
         pw.flush();
       //  super.service(req, resp);
     }
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp)throws ServletException, IOException{
+        doPost(req,resp);
+    }
+
 }
